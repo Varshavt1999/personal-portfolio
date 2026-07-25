@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: var(--theme-bg);
+  --color-surface: var(--theme-surface);
+  --color-surface-hover: var(--theme-surface-hover);
+  --color-border: var(--theme-border);
+  --color-muted: var(--theme-muted);
+  --color-foreground: var(--theme-foreground);
+  --color-accent: var(--theme-accent);
+  --color-accent-muted: var(--theme-accent-muted);
+  --color-accent-soft: var(--theme-accent-soft);
+  --color-accent-contrast: var(--theme-accent-contrast);
+  --color-highlight: var(--theme-highlight);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: light;
+  --theme-bg: #f6f7fb;
+  --theme-surface: #ffffff;
+  --theme-surface-hover: #eef5f4;
+  --theme-border: #d9e7e3;
+  --theme-muted: #59616c;
+  --theme-foreground: #12121f;
+  --theme-accent: #0f766e;
+  --theme-accent-muted: #166c72;
+  --theme-accent-soft: #d9f5f2;
+  --theme-accent-contrast: #ffffff;
+  --theme-highlight: #38bdf8;
+}
+
+.dark {
+  color-scheme: dark;
+  --theme-bg: #070a0b;
+  --theme-surface: #101418;
+  --theme-surface-hover: #162025;
+  --theme-border: #243138;
+  --theme-muted: #9aa1ac;
+  --theme-foreground: #f8fafc;
+  --theme-accent: #2dd4bf;
+  --theme-accent-muted: #22d3ee;
+  --theme-accent-soft: #0f172a;
+  --theme-accent-contrast: #ffffff;
+  --theme-highlight: #38bdf8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground text-sm antialiased md:text-base;
+    font-family: var(--font-sans);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--theme-accent) 25%, transparent);
+    color: var(--theme-foreground);
+  }
+}
+
+@layer utilities {
+  .card {
+    @apply border border-border bg-surface;
+  }
+
+  .section-alt {
+    background-image: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--theme-surface-hover) 94%, var(--theme-surface)) 0%,
+      color-mix(in oklab, var(--theme-accent-soft) 30%, var(--theme-surface-hover)) 35%,
+      color-mix(in oklab, var(--theme-accent-muted) 20%, var(--theme-surface-hover)) 70%,
+      color-mix(in oklab, var(--theme-accent) 90%, var(--theme-surface-hover)) 100%
+    );
+  }
+
+  .btn-primary {
+    @apply rounded-lg px-5 py-2 text-sm font-medium text-accent-contrast transition duration-200;
+    background-image: linear-gradient(90deg, var(--theme-accent) 10%, var(--theme-accent-muted) 50%, var(--theme-highlight) 90%);
+    background-size: 200% 100%;
+    background-position: left;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.05);
+  }
+
+  .btn-secondary {
+    @apply rounded-lg border border-border px-5 py-2 text-sm font-medium text-foreground transition duration-200;
+    background-image: linear-gradient(90deg, var(--theme-surface), var(--theme-surface-hover));
+  }
+
+  .btn-secondary:hover {
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--theme-surface) 95%, var(--theme-accent-soft) 5%),
+      var(--theme-surface-hover)
+    );
+  }
+
+  .project-tone-a {
+    background-color: color-mix(in oklab, var(--theme-accent) 14%, var(--theme-surface));
+  }
+
+  .project-tone-b {
+    background-color: color-mix(in oklab, var(--theme-highlight) 10%, var(--theme-surface));
+  }
+
+  .project-tone-c {
+    background-color: color-mix(in oklab, var(--theme-accent) 8%, var(--theme-surface-hover));
+  }
+
+  .project-tone-d {
+    background-color: color-mix(in oklab, var(--theme-highlight) 6%, var(--theme-surface-hover));
+  }
+}
